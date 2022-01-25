@@ -26,10 +26,10 @@ public class Capstone {
                 new TableSchema()
                         .setFields(
                                 Arrays.asList(
-                                      new TableFieldSchema()
-                                              .setName("cust_tier_code")
-                                              .setType("STRING")
-                                              .setMode("REQUIRED"),
+                                        new TableFieldSchema()
+                                                .setName("cust_tier_code")
+                                                .setType("STRING")
+                                                .setMode("REQUIRED"),
                                         new TableFieldSchema()
                                                 .setName("sku")
                                                 .setType("INTEGER")
@@ -62,9 +62,9 @@ public class Capstone {
                         BigQueryIO.readTableRows()
                                 .fromQuery(
                                         "SELECT customers.CUST_TIER_CODE AS cust_tier_code, product_views.SKU AS sku, COUNT(DISTINCT(product_views.EVENT_TM)) AS total_no_of_product_views \n" +
-                                        "FROM `york-cdf-start.final_input_data.customers` AS customers \n" +
-                                        "JOIN `york-cdf-start.final_input_data.product_views` AS product_views ON (customers.CUSTOMER_ID = product_views.CUSTOMER_ID) \n" +
-                                        "GROUP BY customers.CUST_TIER_CODE, product_views.SKU")
+                                                "FROM `york-cdf-start.final_input_data.customers` AS customers \n" +
+                                                "JOIN `york-cdf-start.final_input_data.product_views` AS product_views ON (customers.CUSTOMER_ID = product_views.CUSTOMER_ID) \n" +
+                                                "GROUP BY customers.CUST_TIER_CODE, product_views.SKU")
                                 .usingStandardSql());
 
         PCollection<TableRow> sales_rows =
@@ -72,11 +72,10 @@ public class Capstone {
                         "Read from BigQuery2",
                         BigQueryIO.readTableRows()
                                 .fromQuery(
-                                 "SELECT customers.CUST_TIER_CODE AS cust_tier_code, orders.SKU AS sku, ROUND(SUM(orders.ORDER_AMT), 2) AS total_sales_amount\n" +
-                                         "FROM `york-cdf-start.final_input_data.customers` AS customers\n" +
-                                         "JOIN `york-cdf-start.final_input_data.orders` AS orders ON (customers.CUSTOMER_ID = orders.CUSTOMER_ID)\n" +
-                                         "GROUP BY customers.CUST_TIER_CODE, orders.SKU"
-                                )
+                                        "SELECT customers.CUST_TIER_CODE AS cust_tier_code, orders.SKU AS sku, ROUND(SUM(orders.ORDER_AMT), 2) AS total_sales_amount\n" +
+                                                "FROM `york-cdf-start.final_input_data.customers` AS customers\n" +
+                                                "JOIN `york-cdf-start.final_input_data.orders` AS orders ON (customers.CUSTOMER_ID = orders.CUSTOMER_ID)\n" +
+                                                "GROUP BY customers.CUST_TIER_CODE, orders.SKU")
                                 .usingStandardSql());
 
         views_rows.apply(
@@ -98,8 +97,6 @@ public class Capstone {
         p.run().waitUntilFinish();
 
 
-
     }
-
-
 }
+
