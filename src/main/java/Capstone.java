@@ -100,4 +100,4 @@ public class Capstone {
     }
 }
 
-// adding comment to test Jenkins one last time
+// adding comment to test Jenkins Maven project version
